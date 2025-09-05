@@ -15,13 +15,16 @@ from sklearn.metrics import (
     classification_report, confusion_matrix, roc_auc_score, roc_curve,
     precision_score, recall_score, f1_score, precision_recall_curve
 )
-
+from pathlib import Path
 
 # ======================
 # 2. Charger les données
 # ======================
-df = pd.read_excel("C:/Users/olivi/OneDrive/Bureau/Data science/Junior Data Analyst/Projets/Portfolio/Churn_prediction/churn-bigml.xlsx")
+# repo_root/src/Churn_analysis.py  → remonter d'un dossier vers la racine du repo
+Repo_Root = Path(__file__).resolve().parent.parent
+Data_Path = Repo_Root / "data" / "churn-bigml.xlsx"
 
+df = pd.read_excel(Data_Path)
 print("Shape:", df.shape)
 print(df.head())
 
@@ -291,3 +294,4 @@ X_test_copy = X_test.copy()
 X_test_copy["Churn_Proba"] = y_proba_log
 top_risk = X_test_copy.sort_values("Churn_Proba", ascending=False).head(10)
 top_risk
+
